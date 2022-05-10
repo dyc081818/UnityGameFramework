@@ -188,6 +188,10 @@ namespace UnityGameFramework.Runtime
             m_WebRequestManager.GetAllWebRequestInfos(results);
         }
 
+        public int AddHeaderRequest(string webRequestUri, object userData) {
+            return m_WebRequestManager.AddHeaderRequest(webRequestUri, WWWFormInfo.Create(null, userData));
+        }
+
         /// <summary>
         /// 增加 Web 请求任务。
         /// </summary>

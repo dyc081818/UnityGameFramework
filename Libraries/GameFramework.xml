@@ -26195,6 +26195,13 @@
             Web 请求代理辅助器错误事件。
             </summary>
         </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestAgentHelper.RequestHeader(System.String,System.Object)">
+            <summary>
+            通过 Web请求数据头
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
         <member name="M:GameFramework.WebRequest.IWebRequestAgentHelper.Request(System.String,System.Object)">
             <summary>
             通过 Web 请求代理辅助器发送 Web 请求。
@@ -26298,6 +26305,14 @@
             获取所有 Web 请求任务的信息。
             </summary>
             <param name="results">所有 Web 请求任务的信息。</param>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddHeaderRequest(System.String,System.Object)">
+            <summary>
+            增加 Web 头部请求任务。
+            </summary>
+            <param name="webRequestUri"></param>
+            <param name="userData"></param>
+            <returns></returns>
         </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String)">
             <summary>
@@ -26473,10 +26488,11 @@
             初始化 Web 请求代理辅助器完成事件的新实例。
             </summary>
         </member>
-        <member name="M:GameFramework.WebRequest.WebRequestAgentHelperCompleteEventArgs.Create(System.Byte[])">
+        <member name="M:GameFramework.WebRequest.WebRequestAgentHelperCompleteEventArgs.Create(System.Collections.Generic.Dictionary{System.String,System.String},System.Byte[])">
             <summary>
             创建 Web 请求代理辅助器完成事件。
             </summary>
+            <param name="headers">相应数据头</param>
             <param name="webResponseBytes">Web 响应的数据流。</param>
             <returns>创建的 Web 请求代理辅助器完成事件。</returns>
         </member>
@@ -26484,6 +26500,12 @@
             <summary>
             清理 Web 请求代理辅助器完成事件。
             </summary>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestAgentHelperCompleteEventArgs.GetWebResponseHeaders">
+            <summary>
+            获取web 相应数据头
+            </summary>
+            <returns>数据头字典</returns>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestAgentHelperCompleteEventArgs.GetWebResponseBytes">
             <summary>
@@ -26663,6 +26685,14 @@
             获取所有 Web 请求任务的信息。
             </summary>
             <param name="results">所有 Web 请求任务的信息。</param>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddHeaderRequest(System.String,System.Object)">
+            <summary>
+            增加 Web 头请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="userData">用户自定义数据</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String)">
             <summary>
@@ -26903,6 +26933,11 @@
             获取 Web 请求任务的描述。
             </summary>
         </member>
+        <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.HeaderRequest">
+            <summary>
+            是否为头部请求
+            </summary>
+        </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Create(System.String,System.Byte[],System.String,System.Int32,System.Single,System.Object)">
             <summary>
             创建 Web 请求任务。
@@ -27014,12 +27049,13 @@
             获取用户自定义数据。
             </summary>
         </member>
-        <member name="M:GameFramework.WebRequest.WebRequestSuccessEventArgs.Create(System.Int32,System.String,System.Byte[],System.Object)">
+        <member name="M:GameFramework.WebRequest.WebRequestSuccessEventArgs.Create(System.Int32,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Byte[],System.Object)">
             <summary>
             创建 Web 请求成功事件。
             </summary>
             <param name="serialId">Web 请求任务的序列编号。</param>
             <param name="webRequestUri">Web 请求地址。</param>
+            <param name="headers">数据头</param>
             <param name="webResponseBytes">Web 响应的数据流。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>创建的 Web 请求成功事件。</returns>
@@ -27028,6 +27064,12 @@
             <summary>
             清理 Web 请求成功事件。
             </summary>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestSuccessEventArgs.GetWebResponseHeaders">
+            <summary>
+            获取web 相应数据头
+            </summary>
+            <returns>数据头</returns>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestSuccessEventArgs.GetWebResponseBytes">
             <summary>

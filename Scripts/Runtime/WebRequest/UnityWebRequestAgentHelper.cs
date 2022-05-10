@@ -8,6 +8,7 @@
 using GameFramework;
 using GameFramework.WebRequest;
 using System;
+using System.Collections.Generic;
 #if UNITY_5_4_OR_NEWER
 using UnityEngine.Networking;
 #else
@@ -56,6 +57,30 @@ namespace UnityGameFramework.Runtime
             {
                 m_WebRequestAgentHelperErrorEventHandler -= value;
             }
+        }
+
+        /// <summary>
+        /// 请求数据头
+        /// </summary>
+        /// <param name="webRequestUri"></param>
+        /// <param name="userData"></param>
+        public override void RequestHeader(string webRequestUri, object userData)
+        {
+            if (m_WebRequestAgentHelperCompleteEventHandler == null || m_WebRequestAgentHelperErrorEventHandler == null)
+            {
+                Log.Fatal("Web request agent helper handler is invalid.");
+                return;
+            }
+
+            WWWFormInfo wwwFormInfo = (WWWFormInfo)userData;
+            m_UnityWebRequest = UnityWebRequest.Get(webRequestUri);
+            m_UnityWebRequest.method = "HEAD";
+
+#if UNITY_2017_2_OR_NEWER
+            m_UnityWebRequest.SendWebRequest();
+#else
+            m_UnityWebRequest.Send();
+#endif
         }
 
         /// <summary>
@@ -177,7 +202,7 @@ namespace UnityGameFramework.Runtime
             }
             else if (m_UnityWebRequest.downloadHandler.isDone)
             {
-                WebRequestAgentHelperCompleteEventArgs webRequestAgentHelperCompleteEventArgs = WebRequestAgentHelperCompleteEventArgs.Create(m_UnityWebRequest.downloadHandler.data);
+                WebRequestAgentHelperCompleteEventArgs webRequestAgentHelperCompleteEventArgs = WebRequestAgentHelperCompleteEventArgs.Create(m_UnityWebRequest.GetResponseHeaders(), m_UnityWebRequest.downloadHandler.data);
                 m_WebRequestAgentHelperCompleteEventHandler(this, webRequestAgentHelperCompleteEventArgs);
                 ReferencePool.Release(webRequestAgentHelperCompleteEventArgs);
             }

@@ -27,6 +27,13 @@ namespace UnityGameFramework.Runtime
         public abstract event EventHandler<WebRequestAgentHelperErrorEventArgs> WebRequestAgentHelperError;
 
         /// <summary>
+        /// 通过 Web 请求代理辅助器请求数据头。
+        /// </summary>
+        /// <param name="webRequestUri">Web 请求地址。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public abstract void RequestHeader(string webRequestUri, object userData);
+
+        /// <summary>
         /// 通过 Web 请求代理辅助器发送 Web 请求。
         /// </summary>
         /// <param name="webRequestUri">Web 请求地址。</param>

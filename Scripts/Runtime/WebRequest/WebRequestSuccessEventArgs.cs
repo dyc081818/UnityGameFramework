@@ -5,6 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using System.Collections.Generic;
 using GameFramework;
 using GameFramework.Event;
 
@@ -15,8 +16,9 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class WebRequestSuccessEventArgs : GameEventArgs
     {
+        private Dictionary<string, string> m_WebResponseHeaders = null;
         private byte[] m_WebResponseBytes = null;
-
+        
         /// <summary>
         /// Web 请求成功事件编号。
         /// </summary>
@@ -71,6 +73,10 @@ namespace UnityGameFramework.Runtime
             private set;
         }
 
+        public Dictionary<string, string> GetWebResponseHeaders() {
+            return m_WebResponseHeaders;
+        }
+
         /// <summary>
         /// 获取 Web 响应的数据流。
         /// </summary>
@@ -91,6 +97,7 @@ namespace UnityGameFramework.Runtime
             WebRequestSuccessEventArgs webRequestSuccessEventArgs = ReferencePool.Acquire<WebRequestSuccessEventArgs>();
             webRequestSuccessEventArgs.SerialId = e.SerialId;
             webRequestSuccessEventArgs.WebRequestUri = e.WebRequestUri;
+            webRequestSuccessEventArgs.m_WebResponseHeaders = e.GetWebResponseHeaders();
             webRequestSuccessEventArgs.m_WebResponseBytes = e.GetWebResponseBytes();
             webRequestSuccessEventArgs.UserData = wwwFormInfo.UserData;
             ReferencePool.Release(wwwFormInfo);
